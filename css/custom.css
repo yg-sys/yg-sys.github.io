@@ -43,7 +43,7 @@ body{
     position: fixed;
     background: url(../img/Stars.svg);
     background-attachment: fixed;
-    width: 250%;
+    width: 100%;
     min-height: 100vh;
     z-index: -1;
     opacity: 0;
@@ -75,7 +75,7 @@ body{
     height: 80%;
     opacity: 0;
     animation: forest-move-in 1000ms 500ms forwards;
-    border-bottom: 110px solid #181d23;
+    border-bottom: 100px solid #181d23;
     margin-bottom: 260px;
   }
   
@@ -95,7 +95,7 @@ body{
     left: 0;
     background: url(../img/musician.png) bottom left no-repeat;
     width: 50%;
-    height: 100%;
+    height: 84vh;
     opacity: 0; 
      animation: silhouette-move-in 1000ms 800ms forwards;
   }
@@ -206,7 +206,7 @@ body{
   }
   
   .color {
-    color: #22eaaa;
+    color: #1aaf80;
     font-style: italic;
   }
   
@@ -231,5 +231,70 @@ body{
   
     .silhouette {
       width: 100%;
+    }
+  }
+
+.skills-graph {
+    fill: transparent;
+    visibility: visible;
+    stroke: #22eaaa;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+}
+.skills-active{
+    animation-name: skills;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+    stroke-dasharray: 377;
+	animation-fill-mode: forwards;
+}
+
+#nodejs{
+    stroke-dashoffset: 140;
+}
+#html{
+    stroke-dashoffset: 120;
+}
+#css{
+    stroke-dashoffset: 160;
+}
+#mysql{
+    stroke-dashoffset: 200;
+}
+#python{
+    stroke-dashoffset: 180;
+}
+#cpp{
+    stroke-dashoffset: 200;
+}
+#webdev{
+    stroke-dashoffset: 160;
+}
+#blockchain{
+    stroke-dashoffset: 210;
+}
+#ml{
+    stroke-dashoffset: 220;
+}
+#algo{
+    stroke-dashoffset: 130;
+}
+
+@keyframes skills {
+    0% {
+      stroke-dashoffset: 377;
+      stroke: white;
+    }
+    50% {
+      stroke: #22eaaa;
+    }
+    100% {
+        stroke: #22eaaa;   
     }
   }

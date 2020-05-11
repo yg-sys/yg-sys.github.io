@@ -234,67 +234,26 @@ body{
     }
   }
 
-.skills-graph {
-    fill: transparent;
-    visibility: visible;
-    stroke: #22eaaa;
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-	-ms-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	-o-transform: rotate(-90deg);
-}
-.skills-active{
-    animation-name: skills;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-	animation-delay: 0s;
-	animation-iteration-count: 1;
-	animation-direction: normal;
-    stroke-dasharray: 377;
-	animation-fill-mode: forwards;
-}
-
-#nodejs{
-    stroke-dashoffset: 140;
-}
-#html{
-    stroke-dashoffset: 120;
-}
-#css{
-    stroke-dashoffset: 160;
-}
-#mysql{
-    stroke-dashoffset: 200;
-}
-#python{
-    stroke-dashoffset: 180;
-}
-#cpp{
-    stroke-dashoffset: 200;
-}
-#webdev{
-    stroke-dashoffset: 160;
-}
-#blockchain{
-    stroke-dashoffset: 210;
-}
-#ml{
-    stroke-dashoffset: 220;
-}
-#algo{
-    stroke-dashoffset: 130;
-}
-
-@keyframes skills {
-    0% {
-      stroke-dashoffset: 377;
-      stroke: white;
-    }
-    50% {
-      stroke: #22eaaa;
-    }
-    100% {
-        stroke: #22eaaa;   
-    }
+  .skills {
+    margin: auto;
+    text-align: center;
+  }
+  
+  #c {
+    margin: auto;
+  }
+  
+  .skills-header {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    height: 25px;
+  }
+  
+  .pentagon {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    padding: 3px 3px 28px 3px;
+    display:inline-block;
   }

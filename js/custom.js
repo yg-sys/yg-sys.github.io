@@ -1,20 +1,20 @@
 jQuery(document).ready(function () {
 
 	"use strict";
-	;(function($, win) {
-		$.fn.inViewport = function(cb) {
-		   return this.each(function(i,el) {
-			 function visPx(){
-			   var elH = $(el).outerHeight(),
-				   H = $(win).height(),
-				   r = el.getBoundingClientRect(), t=r.top, b=r.bottom;
-			   return cb.call(el, Math.max(0, t>0? Math.min(elH, H-t) : Math.min(b, H)));  
-			 }
-			 visPx();
-			 $(win).on("resize scroll", visPx);
-		   });
+	; (function ($, win) {
+		$.fn.inViewport = function (cb) {
+			return this.each(function (i, el) {
+				function visPx() {
+					var elH = $(el).outerHeight(),
+						H = $(win).height(),
+						r = el.getBoundingClientRect(), t = r.top, b = r.bottom;
+					return cb.call(el, Math.max(0, t > 0 ? Math.min(elH, H - t) : Math.min(b, H)));
+				}
+				visPx();
+				$(win).on("resize scroll", visPx);
+			});
 		};
-	  }(jQuery, window));
+	}(jQuery, window));
 
 	function sleep(ms) {
 		// console.log('sleeping');
@@ -30,7 +30,7 @@ jQuery(document).ready(function () {
 	}
 
 	change_heading_text();
-	
+
 
 	var scene = document.getElementById('scene');
 	var parallaxInstance = new Parallax(scene);
@@ -57,11 +57,151 @@ jQuery(document).ready(function () {
 		});
 	}, 40);
 
-	
 
-	$(".skills-graph").inViewport(function(px){
-		// console.log("skills in viewport");
-		if(px) $(this).addClass("skills-active") ;
+
+
+	var skills = [
+		{
+			"header": "INTERESTS",
+			"captions": [
+				"Music",
+				"ML",
+				"Blockchain",
+				"Web",
+				"CP"
+			],
+			"values": [
+				0.70,
+				0.70,
+				0.60,
+				0.80,
+				0.60
+			]
+		},
+		{
+			"header": "LANGUAGES",
+			"captions": [
+				"nodeJS",
+				"CSS",
+				"Python",
+				"MongoDB",
+				"C++"
+			],
+			"values": [
+				0.70,
+				0.65,
+				0.50,
+				0.60,
+				0.70
+			]
+		},
+		{
+			"header": "MISC",
+			"captions": [
+				"Bootstrap",
+				"Express",
+				"Git",
+				"Linux",
+				"Selenium"
+			],
+			"values": [
+				0.7,
+				0.6,
+				0.6,
+				0.5,
+				0.6
+			]
+		}
+	];
+
+	var pentagonIndex = 0;
+	var valueIndex = 0;
+	var width = 0;
+	var height = 0;
+	var radOffset = Math.PI / 2
+	var sides = 5; // Number of sides in the polygon
+	var theta = 2 * Math.PI / sides; // radians per section
+
+	function getXY(i, radius) {
+		return {
+			"x": Math.cos(radOffset + theta * i) * radius * width + width / 2,
+			"y": Math.sin(radOffset + theta * i) * radius * height + height / 2
+		};
+	}
+
+	var hue = [];
+	var hueOffset = 25;
+	// console.log($(".skills-graph").html());
+
+	for (var sk in skills) {
+		// console.log(sk);
+		$(".skills-graph").append('<div class="col-sm-3 pentagon" id="interests"><div class="skills-header"></div><canvas class="pentCanvas"/></div><div class="col-sm-1"></div>');
+		// console.log($(".skills-graph").html());
+		hue[sk] = (hueOffset + sk * 255 / skills.length) % 255;
+	}
+
+	$(".pentagon").each(function (index) {
+		width = $(this).width();
+		height = $(this).height();
+		var ctx = $(this).find('canvas')[0].getContext('2d');
+		ctx.canvas.width = width;
+		ctx.canvas.height = height;
+		ctx.font = "15px \"Open Sans\", sans-serif ";
+		ctx.textAlign = "center";
+
+		/*** LABEL ***/
+		let color = "hsl(" + hue[pentagonIndex] + ", 100%, 50%)";
+		ctx.fillStyle = color;
+		// console.log(pentagonIndex);
+		ctx.fillText(skills[pentagonIndex].header, width / 2, 15);
+
+		
+
+		/*** PENTAGON BACKGROUND ***/
+		for (var i = 0; i < sides; i++) {
+			// For each side, draw two segments: the side, and the radius
+			ctx.beginPath();
+			let xy = getXY(i, 0.3);
+			let colorJitter = 25 + theta * i * 2;
+			color = "hsl(" + hue[pentagonIndex] + ",100%," + colorJitter + "%)";
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.moveTo(0.5 * width, 0.5 * height); //center
+			ctx.lineTo(xy.x, xy.y);
+			xy = getXY(i + 1, 0.3);
+			ctx.lineTo(xy.x, xy.y);
+			xy = getXY(i, 0.37);
+			console.log();
+			ctx.fillText(skills[pentagonIndex].captions[valueIndex], xy.x, xy.y + 5);
+			valueIndex++;
+			ctx.closePath();
+			ctx.fill();
+			ctx.stroke();
+		}
+
+		valueIndex = 0;
+		ctx.beginPath();
+		ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+		ctx.lineWidth = 5;
+		var value = skills[pentagonIndex].values[valueIndex];
+		let xy = getXY(i, value * 0.3);
+		ctx.moveTo(xy.x, xy.y);
+		/*** SKILL GRAPH ***/
+		for (var i = 0; i < sides; i++) {
+			xy = getXY(i, value * 0.3);
+			ctx.lineTo(xy.x, xy.y);
+			valueIndex++;
+			value = skills[pentagonIndex].values[valueIndex];
+		}
+		ctx.closePath();
+		ctx.stroke();
+		ctx.fill();
+		valueIndex = 0;
+		pentagonIndex++;
 	});
+
+
+
 
 });

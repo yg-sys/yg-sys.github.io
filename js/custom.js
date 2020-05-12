@@ -62,7 +62,7 @@ jQuery(document).ready(function () {
 
 	var skills = [
 		{
-			"header": "INTERESTS",
+			"header": "Interests",
 			"captions": [
 				"Music",
 				"ML",
@@ -79,36 +79,36 @@ jQuery(document).ready(function () {
 			]
 		},
 		{
-			"header": "LANGUAGES",
+			"header": "Languages/Frameworks",
 			"captions": [
-				"nodeJS",
+				"NodeJS",
 				"CSS",
 				"Python",
-				"MongoDB",
+				"Java",
 				"C++"
 			],
 			"values": [
 				0.70,
 				0.65,
 				0.50,
-				0.60,
+				0.40,
 				0.70
 			]
 		},
 		{
-			"header": "MISC",
+			"header": "Dev Tools",
 			"captions": [
 				"Bootstrap",
 				"Express",
 				"Git",
-				"Linux",
-				"Selenium"
+				"MongoDB",
+				"   Selenium"
 			],
 			"values": [
 				0.7,
 				0.6,
 				0.6,
-				0.5,
+				0.7,
 				0.6
 			]
 		}
@@ -170,9 +170,9 @@ jQuery(document).ready(function () {
 			ctx.lineTo(xy.x, xy.y);
 			xy = getXY(i + 1, 0.3);
 			ctx.lineTo(xy.x, xy.y);
-			xy = getXY(i, 0.37);
+			xy = getXY(i, 0.39);
 			console.log();
-			ctx.fillText(skills[pentagonIndex].captions[valueIndex], xy.x, xy.y + 5);
+			ctx.fillText(skills[pentagonIndex].captions[valueIndex], xy.x, xy.y+3);
 			valueIndex++;
 			ctx.closePath();
 			ctx.fill();
@@ -202,6 +202,11 @@ jQuery(document).ready(function () {
 	});
 
 
-
+	$(".nav-link").on("click",function(){
+		// console.log("click hua");
+		// console.log($(".probootstrap-burger-menu.visible-xs").html());
+		$(".probootstrap-mobile-menu-active").removeClass("show");
+		$(".probootstrap-burger-menu.visible-xs").removeClass("active");
+	});
 
 });

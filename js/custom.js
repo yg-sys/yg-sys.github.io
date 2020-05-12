@@ -37,7 +37,7 @@ jQuery(document).ready(function () {
 
 	const s = window.screen;
 	const w = (q.width = s.width);
-	const h = (q.height = 300);
+	const h = (q.height = s.height);
 
 	const ctx = q.getContext("2d");
 
